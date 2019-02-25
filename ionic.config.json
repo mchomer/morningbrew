@@ -1,0 +1,7 @@
+{
+  "name": "MorningBrew",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "angular"
+}

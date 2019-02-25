@@ -1,0 +1,39 @@
+<ion-header>
+  <ion-toolbar [color]="Color">
+    <ion-title>The Morning Brew</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding [color]="Color">
+  <div *ngIf="ErrorMessage" color="red">{{ ErrorMessage }}</div>
+  <div *ngIf="!BrewPosts">
+    Loading posts...
+  </div>
+  <div *ngIf="BrewPosts">
+    <ion-card *ngFor="let post of BrewPosts">
+      <ion-card-header [color]="Color">
+        <span>{{ post.Title }}</span><br />
+        <span>{{ post.PostedAt }}</span>
+      </ion-card-header>
+      <ion-card-content>
+        <ion-list >       
+          <div *ngIf="post.Links.length > 0">
+            <ion-item *ngFor="let link of post.Links" (click)="openLink(link.Url)" [color]="Color">
+              <p>
+                {{ link.Title }}
+              </p><p></p>
+            </ion-item>
+          </div>   
+          <div *ngIf="post.Links.length == 0">
+            <ion-item [color]="Color">
+              {{ post.TextContent }}
+            </ion-item>
+          </div>
+        </ion-list>
+      </ion-card-content>
+    </ion-card>
+  </div>
+  <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
+    <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Loading more posts..."></ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+</ion-content>
